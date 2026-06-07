@@ -2,10 +2,10 @@ function ProductCard({ product }) {
   return (
     <div
       style={{
-        border: "1px solid #ddd",
-        borderRadius: "10px",
-        padding: "15px",
         backgroundColor: "white",
+        borderRadius: "10px",
+        overflow: "hidden",
+        border: "1px solid #ddd",
       }}
     >
       <img
@@ -18,15 +18,30 @@ function ProductCard({ product }) {
         }}
       />
 
-      <h3
+      <div
         style={{
-          marginTop: "10px",
+          padding: "15px",
         }}
       >
-        {product.name}
-      </h3>
+        <h3>{product.name}</h3>
 
-      <p>${product.price}</p>
+        <p
+          style={{
+            color: "#666",
+            margin: "10px 0",
+          }}
+        >
+          {product.category}
+        </p>
+
+        <p
+          style={{
+            fontWeight: "bold",
+          }}
+        >
+          ${product.price}
+        </p>
+      </div>
     </div>
   );
 }
