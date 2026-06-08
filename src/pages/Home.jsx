@@ -17,40 +17,59 @@ function Home() {
     <>
       {/* Hero */}
       <section>
-        <Container>
-          <div
-            style={{
-              textAlign: "center",
-              padding: "80px 0",
-            }}
-          >
-            <h1
-              style={{
-                fontSize: "48px",
-                marginBottom: "20px",
-              }}
-            >
-              Upgrade Your Tech Experience
-            </h1>
+  <Container>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns:
+          "repeat(auto-fit,minmax(300px,1fr))",
+        alignItems: "center",
+        gap: "40px",
+        padding: "80px 0",
+      }}
+    >
+      <div>
+        <h1
+          style={{
+            fontSize: "52px",
+            marginBottom: "20px",
+          }}
+        >
+          Upgrade Your Tech Experience
+        </h1>
 
-            <p
-              style={{
-                fontSize: "18px",
-                color: "#555",
-                marginBottom: "25px",
-              }}
-            >
-              Discover premium gadgets, laptops,
-              accessories and more.
-            </p>
+        <p
+          style={{
+            fontSize: "18px",
+            color: "#555",
+            marginBottom: "25px",
+          }}
+        >
+          Discover premium gadgets,
+          laptops, accessories and more.
+        </p>
 
-            <Button
-  text="Shop Now"
-  onClick={() => navigate("/products")}
-/>
-</div>
-        </Container>
-      </section>
+        <Button
+          text="Shop Now"
+          onClick={() =>
+            navigate("/products")
+          }
+        />
+      </div>
+
+      <div>
+        <img
+          src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853"
+          alt="Hero"
+          style={{
+            width: "100%",
+            borderRadius: "20px",
+          }}
+        />
+      </div>
+    </div>
+  </Container>
+</section>
 
       {/* Featured Products */}
       <section>

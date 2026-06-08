@@ -5,10 +5,7 @@ import { useSelector } from "react-redux";
 function Navbar() {
   const cartItems = useSelector((state) => state.cart.items);
 
-  const cartCount = cartItems.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   const linkStyle = ({ isActive }) => ({
     textDecoration: "none",
@@ -40,15 +37,33 @@ function Navbar() {
               gap: "20px",
             }}
           >
-            <NavLink to="/" style={linkStyle}>
+            <NavLink
+              to="/"
+              style={({ isActive }) => ({
+                color: isActive ? "#2563eb" : "#000",
+                fontWeight: isActive ? "bold" : "normal",
+              })}
+            >
               Home
             </NavLink>
 
-            <NavLink to="/products" style={linkStyle}>
+            <NavLink
+              to="/products"
+              style={({ isActive }) => ({
+                color: isActive ? "#2563eb" : "#000",
+                fontWeight: isActive ? "bold" : "normal",
+              })}
+            >
               Products
             </NavLink>
 
-            <NavLink to="/cart" style={linkStyle}>
+            <NavLink
+              to="/cart"
+              style={({ isActive }) => ({
+                color: isActive ? "#2563eb" : "#000",
+                fontWeight: isActive ? "bold" : "normal",
+              })}
+            >
               Cart ({cartCount})
             </NavLink>
           </div>

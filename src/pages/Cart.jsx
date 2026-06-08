@@ -13,22 +13,24 @@ import Button from "../components/Button";
 
 function Cart() {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state.cart.items);
 
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
-
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
-    0,
+    0
   );
 
   const totalItems = cartItems.reduce(
     (total, item) => total + item.quantity,
-    0,
+    0
   );
+
+  const formattedTotal = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(totalPrice);
 
   return (
     <Container>
@@ -44,20 +46,17 @@ function Cart() {
       {cartItems.length === 0 ? (
         <div
           style={{
-            marginTop: "40px",
-            maxWidth: "500px",
-            border: "2px solid gray",
-            padding: "20px",
-            margin: "0 auto",
-            borderRadius: "10px",
             textAlign: "center",
+            padding: "80px 20px",
+            border: "2px solid #c9c3c3",
+            borderRadius: "10px",
           }}
         >
-          <h3>🛒 Your cart is empty</h3>
+          <h2>🛒 Your Cart Is Empty</h2>
 
           <p
             style={{
-              marginTop: "10px",
+              marginTop: "15px",
               marginBottom: "20px",
               color: "#666",
             }}
@@ -76,7 +75,7 @@ function Cart() {
             <div
               key={item.id}
               style={{
-                border: "1px solid #ddd",
+                border: "2px solid #ddd",
                 borderRadius: "10px",
                 padding: "20px",
                 marginBottom: "20px",
@@ -86,36 +85,44 @@ function Cart() {
                 gap: "20px",
               }}
             >
-              <div>
-                <div
+              <div
+                style={{
+                  display: "flex",
+                  gap: "20px",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  src={item.image}
+                  alt={item.name}
                   style={{
-                    display: "flex",
-                    gap: "20px",
-                    alignItems: "center",
+                    width: "100px",
+                    height: "100px",
+                    objectFit: "cover",
+                    borderRadius: "10px",
                   }}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.name}
+                />
+
+                <div>
+                  <h3>{item.name}</h3>
+
+                  <p
                     style={{
-                      width: "100px",
-                      height: "100px",
-                      objectFit: "cover",
-                      borderRadius: "10px",
+                      color: "#666",
                     }}
-                  />
+                  >
+                    {item.category}
+                  </p>
 
-                  <div>
-                    <h3>{item.name}</h3>
-                    <p>{item.category}</p>
-                    <p>${item.price}</p>
-                    <p>Quantity: {item.quantity}</p>
-                  </div>
+                  <p>
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(item.price)}
+                  </p>
+
+                  <p>Quantity: {item.quantity}</p>
                 </div>
-
-                <p>${item.price}</p>
-
-                <p>Quantity: {item.quantity}</p>
               </div>
 
               <div
@@ -123,17 +130,24 @@ function Cart() {
                   display: "flex",
                   gap: "10px",
                   flexWrap: "wrap",
+                  
                 }}
               >
-                <button onClick={() => dispatch(decreaseQuantity(item.id))}>
+                <button
+                  onClick={() => dispatch(decreaseQuantity(item.id))}
+                >
                   -
                 </button>
 
-                <button onClick={() => dispatch(increaseQuantity(item.id))}>
+                <button
+                  onClick={() => dispatch(increaseQuantity(item.id))}
+                >
                   +
                 </button>
 
-                <button onClick={() => dispatch(removeFromCart(item.id))}>
+                <button
+                  onClick={() => dispatch(removeFromCart(item.id))}
+                >
                   Remove
                 </button>
               </div>
@@ -142,13 +156,48 @@ function Cart() {
 
           <div
             style={{
-              border: "1px solid #ddd",
+              border: "2px solid #ddd",
               padding: "20px",
               borderRadius: "10px",
               marginBottom: "50px",
             }}
           >
             <h2>Order Summary</h2>
+
+           
+
+            <p
+              style={{
+                marginTop: "15px",
+              }}
+            >
+              Subtotal: {formattedTotal}
+            </p>
+
+            <p
+              style={{
+                marginTop: "10px",
+              }}
+            >
+              Shipping: FREE
+            </p>
+
+            <p
+              style={{
+                marginTop: "10px",
+              }}
+            >
+              Tax: $0.00
+            </p>
+
+            <hr
+              style={{
+                marginTop: "15px",
+                marginBottom: "15px",
+              }}
+            />
+
+            <h3>Total: {formattedTotal}</h3>
 
             <p
               style={{
@@ -158,16 +207,23 @@ function Cart() {
               Total Items: {totalItems}
             </p>
 
-            <p
+            <div
               style={{
-                marginTop: "10px",
-                marginBottom: "20px",
+                display: "flex",
+                gap: "10px",
+                marginTop: "20px",
+                flexWrap: "wrap",
               }}
             >
-              Total Price: ${totalPrice.toFixed(2)}
-            </p>
+              <Button
+                text="Clear Cart"
+                onClick={() => dispatch(clearCart())}
+              />
 
-            <Button text="Clear Cart" onClick={() => dispatch(clearCart())} />
+              <Button
+                text="Proceed To Checkout"
+              />
+            </div>
           </div>
         </>
       )}
