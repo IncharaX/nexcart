@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import {
   removeFromCart,
@@ -11,13 +12,13 @@ import Container from "../components/Container";
 import Button from "../components/Button";
 
 function Cart() {
-    localStorage.setItem(
-  "cartItems",
-  JSON.stringify(state.items)
-);
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state.cart.items);
+
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -41,10 +42,34 @@ function Cart() {
       </h1>
 
       {cartItems.length === 0 ? (
-        <h3>
-          🛒 Your cart is empty Looks like you haven't added anything yet. 
-          [Continue Shopping ]
-        </h3>
+        <div
+          style={{
+            marginTop: "40px",
+            maxWidth: "500px",
+            border: "2px solid gray",
+            padding: "20px",
+            margin: "0 auto",
+            borderRadius: "10px",
+            textAlign: "center",
+          }}
+        >
+          <h3>🛒 Your cart is empty</h3>
+
+          <p
+            style={{
+              marginTop: "10px",
+              marginBottom: "20px",
+              color: "#666",
+            }}
+          >
+            Looks like you haven't added anything yet.
+          </p>
+
+          <Button
+            text="Continue Shopping"
+            onClick={() => navigate("/products")}
+          />
+        </div>
       ) : (
         <>
           {cartItems.map((item) => (
@@ -62,7 +87,31 @@ function Cart() {
               }}
             >
               <div>
-                <h3>{item.name}</h3>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "20px",
+                    alignItems: "center",
+                  }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      objectFit: "cover",
+                      borderRadius: "10px",
+                    }}
+                  />
+
+                  <div>
+                    <h3>{item.name}</h3>
+                    <p>{item.category}</p>
+                    <p>${item.price}</p>
+                    <p>Quantity: {item.quantity}</p>
+                  </div>
+                </div>
 
                 <p>${item.price}</p>
 

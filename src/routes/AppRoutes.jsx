@@ -5,6 +5,7 @@ import Products from "../pages/Products";
 import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
 
+
 function AppRoutes() {
   return (
     <Routes>
@@ -14,12 +15,13 @@ function AppRoutes() {
       <Route path="/cart" element={<Cart />} />
     </Routes>
     
+    
   );
 }
-<>
-  <Navbar />
-  <AppRoutes />
-  <Footer />
-</>
+
+ 
+  
+  
+
 
 export default AppRoutes;
