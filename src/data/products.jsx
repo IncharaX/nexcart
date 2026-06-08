@@ -33,7 +33,7 @@ const products = [
     rating: 4.9,
     featured: true,
     image:
-      "https://images.unsplash.com/photo-1517336714739-489689fd1ca8",
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800",
     description:
       "Lightweight Apple laptop powered by the M3 chip."
   },
