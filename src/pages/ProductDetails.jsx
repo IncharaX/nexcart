@@ -79,7 +79,10 @@ const dispatch = useDispatch();
               marginBottom: "20px",
             }}
           >
-            ${product.price}
+            {new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+            }).format(product.price)}
           </h2>
 
           <p

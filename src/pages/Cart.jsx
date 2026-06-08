@@ -11,22 +11,22 @@ import Container from "../components/Container";
 import Button from "../components/Button";
 
 function Cart() {
+    localStorage.setItem(
+  "cartItems",
+  JSON.stringify(state.items)
+);
   const dispatch = useDispatch();
 
-  const cartItems = useSelector(
-    (state) => state.cart.items
-  );
+  const cartItems = useSelector((state) => state.cart.items);
 
   const totalPrice = cartItems.reduce(
-    (total, item) =>
-      total + item.price * item.quantity,
-    0
+    (total, item) => total + item.price * item.quantity,
+    0,
   );
 
   const totalItems = cartItems.reduce(
-    (total, item) =>
-      total + item.quantity,
-    0
+    (total, item) => total + item.quantity,
+    0,
   );
 
   return (
@@ -41,7 +41,10 @@ function Cart() {
       </h1>
 
       {cartItems.length === 0 ? (
-        <h3>Your cart is empty.</h3>
+        <h3>
+          🛒 Your cart is empty Looks like you haven't added anything yet. 
+          [Continue Shopping ]
+        </h3>
       ) : (
         <>
           {cartItems.map((item) => (
@@ -61,13 +64,9 @@ function Cart() {
               <div>
                 <h3>{item.name}</h3>
 
-                <p>
-                  ${item.price}
-                </p>
+                <p>${item.price}</p>
 
-                <p>
-                  Quantity: {item.quantity}
-                </p>
+                <p>Quantity: {item.quantity}</p>
               </div>
 
               <div
@@ -77,33 +76,15 @@ function Cart() {
                   flexWrap: "wrap",
                 }}
               >
-                <button
-                  onClick={() =>
-                    dispatch(
-                      decreaseQuantity(item.id)
-                    )
-                  }
-                >
+                <button onClick={() => dispatch(decreaseQuantity(item.id))}>
                   -
                 </button>
 
-                <button
-                  onClick={() =>
-                    dispatch(
-                      increaseQuantity(item.id)
-                    )
-                  }
-                >
+                <button onClick={() => dispatch(increaseQuantity(item.id))}>
                   +
                 </button>
 
-                <button
-                  onClick={() =>
-                    dispatch(
-                      removeFromCart(item.id)
-                    )
-                  }
-                >
+                <button onClick={() => dispatch(removeFromCart(item.id))}>
                   Remove
                 </button>
               </div>
@@ -134,16 +115,10 @@ function Cart() {
                 marginBottom: "20px",
               }}
             >
-              Total Price: $
-              {totalPrice.toFixed(2)}
+              Total Price: ${totalPrice.toFixed(2)}
             </p>
 
-            <Button
-              text="Clear Cart"
-              onClick={() =>
-                dispatch(clearCart())
-              }
-            />
+            <Button text="Clear Cart" onClick={() => dispatch(clearCart())} />
           </div>
         </>
       )}

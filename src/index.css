@@ -17,3 +17,14 @@ a{
 button{
   cursor:pointer;
 }
+.active-link {
+  font-weight: bold;
+  color: #2563eb;
+}
+.product-card {
+  transition: 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
