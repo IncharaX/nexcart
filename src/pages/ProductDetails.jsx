@@ -2,8 +2,11 @@ import { useParams } from "react-router-dom";
 import products from "../data/products";
 import Container from "../components/Container";
 import Button from "../components/Button";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
 
 function ProductDetails() {
+const dispatch = useDispatch();
   const { id } = useParams();
 
   const product = products.find(
@@ -88,7 +91,10 @@ function ProductDetails() {
             {product.description}
           </p>
 
-          <Button text="Add To Cart" />
+          <Button
+  text="Add To Cart"
+  onClick={() => dispatch(addToCart(product))}
+/>
         </div>
       </div>
 
