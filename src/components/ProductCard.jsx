@@ -1,11 +1,17 @@
+import { useNavigate } from "react-router-dom";
+
 function ProductCard({ product }) {
   return (
     <div
+  onClick={() =>
+    navigate(`/product/${product.id}`)
+  }
       style={{
         backgroundColor: "white",
         borderRadius: "10px",
         overflow: "hidden",
         border: "1px solid #ddd",
+        cursor: "pointer",
       }}
     >
       <img

@@ -5,7 +5,10 @@ import ProductCard from "../components/ProductCard";
 import products from "../data/products";
 import { useNavigate } from "react-router-dom";
 
+
+
 function Home() {
+    const navigate = useNavigate();
   const featuredProducts = products.filter(
     (product) => product.featured
   );
@@ -42,10 +45,10 @@ function Home() {
             </p>
 
             <Button
-             text="Shop Now"
-            onClick={() => navigate("/products")}
-            />
-          </div>
+  text="Shop Now"
+  onClick={() => navigate("/products")}
+/>
+</div>
         </Container>
       </section>
 
